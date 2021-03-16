@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: apache/tomcat
-          ref: main
+          ref: master
           path: ./tomcat
       - name: list files
         run: ls -lah ./tomcat
