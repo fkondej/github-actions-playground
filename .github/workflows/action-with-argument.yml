@@ -1,0 +1,22 @@
+name: Action with argument
+
+on:
+  push:
+    branches: [ main ]
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  check-tomcat:
+    name: Check tomcat
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tomcat repo
+        uses: actions/checkout@v2
+        with:
+          repository: apache/tomcat
+          ref: main
+          path: ./tomcat
+      - name: list files
+        run: ls -lah ./tomcat
