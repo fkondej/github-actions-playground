@@ -1,0 +1,27 @@
+name: Environment variables
+env:
+  WORKSPACE_ENV_VAR: 'workspace environment variable'
+on:
+  push:
+    branches: [ main ]
+jobs:
+  env-job:
+    name: Set and use environment variables
+    runs-on: ubuntu-latest
+    env:
+      JOB_ENV_VAR: 'job environment variable'
+    steps:
+      - name: Print env variables
+        env:
+          STEP_ENV_VAR: 'step environment variable'
+        run: |
+          echo "Access environment variables the Bash way"
+          echo "workspace: ${WORKSPACE_ENV_VAR}"
+          echo "job: ${JOB_ENV_VAR}"
+          echo "step: ${STEP_ENV_VAR}"
+          echo " ---- "
+          echo "Access environment variables the yaml way"
+          echo "workspace: ${{ env.WORKSPACE_ENV_VAR }}"
+          echo "job: ${{ env.JOB_ENV_VAR }}"
+          echo "step (not available/empty): ${{ env.STEP_ENV_VAR }}"
+    
