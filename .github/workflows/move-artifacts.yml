@@ -63,4 +63,4 @@ jobs:
           name: windows
       
       - name: Test ${{ env.FILE_NAME }}.exe
-        run: source ./test.sh
+        run: windows/${{ env.FILE_NAME }}.exe
