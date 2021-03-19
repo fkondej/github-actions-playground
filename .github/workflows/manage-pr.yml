@@ -40,6 +40,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Merge PR
-        uses: managedkaos/merge-pull-requests@1.2
+        uses: managedkaos/merge-pull-request@v1.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
