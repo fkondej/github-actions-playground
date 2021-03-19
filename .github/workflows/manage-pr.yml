@@ -34,6 +34,8 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
       
+      - run: git fetch
+      
       - name: Approve PR
         uses: hmarr/auto-approve-action@v2.0.0
         with:
