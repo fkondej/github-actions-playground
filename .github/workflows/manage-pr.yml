@@ -1,0 +1,45 @@
+name: Manage PR
+
+on:
+  pull_request:
+    types: [ opened, reopened ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Check out
+        uses: actions/checkout@v2
+      
+      - name: Setup python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      
+      - name: flake8 and pylint
+        run: |
+          pip install -r requirements.txt
+          flake8 --ignore=E501,E231 *.py tests/*.py
+          pylint --errors-only --disable=C0301 --disable=C0326 *.py tests/*.py
+      
+      - name: unit tests
+        run: python -m unittest --verbose --failfast
+  merge:
+    if github.actor == 'fkondej' || github.actor == 'octocat'
+    needs: [ lint ]
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Check out
+        uses: actions/checkout@v2
+      
+      - name: Approve PR
+        uses: hmarr/auto-approve-action@v2.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Merge PR
+        uses: managedkaos/merge-pull-requests@1.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
