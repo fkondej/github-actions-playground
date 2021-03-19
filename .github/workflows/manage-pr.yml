@@ -26,7 +26,7 @@ jobs:
       - name: unit tests
         run: python -m unittest --verbose --failfast
   merge:
-    if github.actor == 'fkondej' || github.actor == 'octocat'
+    if: github.actor == 'fkondej' || github.actor == 'octocat'
     needs: [ lint ]
     runs-on: ubuntu-latest
     steps:
